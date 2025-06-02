@@ -7,6 +7,8 @@ int sacarDinero(int saldo);
 int depositarDinero(int saldo);
 void consultarSaldo(int saldo, int saldoCorriente);
 int cambiarClave(int clave);
+void mostrarMenu();
+
 int main()
 {
     int claveCorrecta=1000, claveIngresada; 
@@ -21,14 +23,14 @@ int main()
     }
     else{
 
-        printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
-        scanf("%d", &opcion);
-        
-        while (opcion<1 || opcion>5)
-        {
-            printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+            mostrarMenu();
             scanf("%d", &opcion);
-        }
+
+            while (opcion < 1 || opcion > 5)
+            {
+                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+                scanf("%d", &opcion);
+            }
         
         }
 
@@ -50,14 +52,6 @@ int main()
 
                             saldoCuentaCorriente = sacarDinero(saldoCuentaCorriente);
                         }
-                            printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
-                            scanf("%d", &opcion);
-        
-                            while (opcion<1 || opcion>5)
-                            {
-                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
-                                scanf("%d", &opcion);
-                            }
                         break;
                         
                     case 2:
@@ -73,47 +67,26 @@ int main()
 
                             saldoCuentaCorriente = depositarDinero(saldoCuentaCorriente);
                         }
-                            printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
-                            scanf("%d", &opcion);
-        
-                            while (opcion<1 || opcion>5)
-                            {
-                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
-                                scanf("%d", &opcion);
-                            }
                         break;
                     case 3:
                         consultarSaldo(saldoCajaAhorro, saldoCuentaCorriente);
-                        printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
-                            scanf("%d", &opcion);
-        
-                            while (opcion<1 || opcion>5)
-                            {
-                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
-                                scanf("%d", &opcion);
-                            }
                         break;
                     case 4:
                         claveCorrecta = cambiarClave(claveCorrecta);
-                        printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
-                            scanf("%d", &opcion);
-        
-                            while (opcion<1 || opcion>5)
-                            {
-                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
-                                scanf("%d", &opcion);
-                            }
                         break;
                     case 5:
                         printf("Gracias por usar el cajero. Hasta luego!\n");
                         break;
+
+                }
+                mostrarMenu();
+                scanf("%d", &opcion);
+                while (opcion < 1 || opcion > 5) {
+                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+                scanf("%d", &opcion);
                 }
         }
         
-    
-        
-
-    
     return 0;
 }
 
@@ -220,4 +193,13 @@ int cambiarClave(int clave){
 
     return claveNueva;
     
+}
+
+void mostrarMenu(){
+    printf("\nSeleccione una opcion:\n");
+    printf("1 - Sacar Dinero\n");
+    printf("2 - Depositar Dinero\n");
+    printf("3 - Consultar Saldo\n");
+    printf("4 - Cambiar la Clave\n");
+    printf("5 - Salir\n");
 }
