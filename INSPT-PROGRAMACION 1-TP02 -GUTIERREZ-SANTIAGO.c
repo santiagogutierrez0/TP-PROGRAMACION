@@ -2,7 +2,6 @@
 #include<stdbool.h>
 #define INTENTOS 3
 
-int mostrarMenu(int saldo, int saldoCorriente, int clave);
 bool verificarClave(int clave, int usuario);
 int sacarDinero(int saldo);
 int depositarDinero(int saldo);
@@ -21,8 +20,99 @@ int main()
         printf("Clave incorrecta. Dirijase a su banco emisor");
     }
     else{
-        mostrarMenu(saldoCajaAhorro, saldoCuentaCorriente, claveCorrecta);
-    }
+
+        printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
+        scanf("%d", &opcion);
+        
+        while (opcion<1 || opcion>5)
+        {
+            printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+            scanf("%d", &opcion);
+        }
+        
+        }
+
+        while (opcion!=5)
+        {
+            switch (opcion) {
+                    case 1:
+                        printf("Seleccione cuenta para extraer: 1-Caja de Ahorro, 2-Cuenta Corriente: ");
+                        scanf("%d", &cuenta);
+                        while (cuenta != 1 && cuenta != 2) {
+                            printf("Opcion invalida. Ingrese 1 o 2: ");
+                            scanf("%d", &cuenta);
+                        }
+                        if (cuenta == 1){
+
+                            saldoCajaAhorro = sacarDinero(saldoCajaAhorro);
+                        }
+                        else{
+
+                            saldoCuentaCorriente = sacarDinero(saldoCuentaCorriente);
+                        }
+                            printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
+                            scanf("%d", &opcion);
+        
+                            while (opcion<1 || opcion>5)
+                            {
+                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+                                scanf("%d", &opcion);
+                            }
+                        break;
+                        
+                    case 2:
+                        printf("Seleccione cuenta para depositar: 1-Caja de Ahorro, 2-Cuenta Corriente: ");
+                        scanf("%d", &cuenta);
+                        while (cuenta != 1 && cuenta != 2) {
+                            printf("Opcion invalida. Ingrese 1 o 2: ");
+                            scanf("%d", &cuenta);
+                        }
+                        if (cuenta == 1)
+                            saldoCajaAhorro = depositarDinero(saldoCajaAhorro);
+                        else{
+
+                            saldoCuentaCorriente = depositarDinero(saldoCuentaCorriente);
+                        }
+                            printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
+                            scanf("%d", &opcion);
+        
+                            while (opcion<1 || opcion>5)
+                            {
+                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+                                scanf("%d", &opcion);
+                            }
+                        break;
+                    case 3:
+                        consultarSaldo(saldoCajaAhorro, saldoCuentaCorriente);
+                        printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
+                            scanf("%d", &opcion);
+        
+                            while (opcion<1 || opcion>5)
+                            {
+                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+                                scanf("%d", &opcion);
+                            }
+                        break;
+                    case 4:
+                        claveCorrecta = cambiarClave(claveCorrecta);
+                        printf("\n1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
+                            scanf("%d", &opcion);
+        
+                            while (opcion<1 || opcion>5)
+                            {
+                                printf("Opcion invalida. Ingrese un numero entre 1 y 5: ");
+                                scanf("%d", &opcion);
+                            }
+                        break;
+                    case 5:
+                        printf("Gracias por usar el cajero. Hasta luego!\n");
+                        break;
+                }
+        }
+        
+    
+        
+
     
     return 0;
 }
@@ -36,7 +126,7 @@ bool verificarClave(int clave, int usuario){
         cont++;
     }
     
-    if (cont>=INTENTOS && usuario!=clave){
+    if (usuario!=clave){
         return false;
     }
     else{
@@ -45,46 +135,6 @@ bool verificarClave(int clave, int usuario){
 
 }
 
-int mostrarMenu(int saldo, int saldoCorriente, int clave){
-    int opcion;
-
-    do
-    {
-        printf("1 - Sacar Dinero\n2 - Depositar Dinero\n3 - Consultar Saldo\n4 - Cambiar la Clave\n5 - Salir\n");
-        scanf("%d", &opcion);
-
-        if(opcion<1 || opcion>5){
-            printf("Ingrese un numero entre 1 - 5\n");
-            scanf("%d", &opcion);
-        }
-
-        switch (opcion)
-        {
-        case 1:
-            saldo=sacarDinero(saldo);
-            break;
-
-        case 2:
-            saldo=depositarDinero(saldo);
-            break;
-        case 3:
-            consultarSaldo(saldo, saldoCorriente);
-            break;
-        case 4:
-            clave=cambiarClave(clave);
-            break;
-
-        case 5:
-            break;
-        
-        default:
-            break;
-        }
-    } while (opcion!=5);
-
-    return saldo;
-
-}
 
 int sacarDinero(int saldo){
 
@@ -92,6 +142,11 @@ int sacarDinero(int saldo){
 
     printf("Cuanto dinero desea retirar:\n");
     scanf("%d", &monto);
+
+    while (monto <= 0) {
+        printf("Monto invalido. Ingrese un monto positivo:\n");
+        scanf("%d", &monto);
+    }
 
     if (monto>saldo)
     {
@@ -110,7 +165,14 @@ int depositarDinero(int saldo){
     printf("Cuanto dinero desea depositar:\n");
     scanf("%d", &monto);
 
+    while (monto <= 0) {
+        printf("Monto invalido. Ingrese un monto positivo:\n");
+        scanf("%d", &monto);
+    }
+
     saldo+=monto;
+
+    printf("Deposito exitoso. Saldo actual: $%d\n", saldo);
 
     return saldo;
 
@@ -118,47 +180,41 @@ int depositarDinero(int saldo){
 
 void consultarSaldo(int saldo, int saldoCorriente){
     int opcion;
-    do
-    {
-        printf("Elija una opcion para consultar el saldo de sus cuentas:\n1 - Caja de Ahorro\n2 - Cuenta Corriente\n");
+    printf("Elija una opcion para consultar el saldo de sus cuentas:\n1 - Caja de Ahorro\n2 - Cuenta Corriente\n");
         scanf("%d", &opcion);
-    } while (opcion<1 || opcion>2);
+    while (opcion < 1 || opcion > 2) {
+        printf("Opcion invalida. Ingrese 1 o 2:\n");
+        scanf("%d", &opcion);
+    }
 
-    switch (opcion)
-    {
-    case 1:
-        printf("Su saldo es de: $%d\n", saldo);
-        break;
-    case 2:
-        printf("Su saldo es de: $%d\n", saldoCorriente);
-        break;
-    
-    default:
-        break;
+    if (opcion == 1) {
+        printf("Su saldo de Caja de Ahorro es: $%d\n", saldo);
+    } else {
+        printf("Su saldo de Cuenta Corriente es: $%d\n", saldoCorriente);
     }
     
 }
 
 int cambiarClave(int clave){
-    int claveNueva;
+    int claveCorrecta, claveNueva;
 
     printf("ingrese la clave actual:\n");
-    scanf("%d", &claveNueva);
+    scanf("%d", &claveCorrecta);
 
-    do
-    {
-        printf("Clave incorrecta. Vuelva a ingresar la clave:\n");
-        scanf("%d", &claveNueva);
-    } while (claveNueva!=clave);
+    while (claveCorrecta != clave) {
+        printf("Clave incorrecta. Vuelva a ingresar la clave actual:\n");
+        scanf("%d", &claveCorrecta);
+    }
+    
 
     printf("Ingrese su nueva clave:\n");
     scanf("%d", &claveNueva);
 
-    do
-    {
+
+    while (claveNueva == clave) {
         printf("Ingrese una clave diferente a la actual:\n");
         scanf("%d", &claveNueva);
-    } while (claveNueva==clave);
+    }
     
     printf("Su clave fue cambiada exitosamente.\n");
 
